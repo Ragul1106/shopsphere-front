@@ -1,16 +1,16 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+const API_URL = import.meta.env.VITE_API_URL?.replace(/\/+$/, '') || 'http://localhost:8000'; 
+
 
 const axiosInstance = axios.create({
-  baseURL: API_URL,
+  baseURL: `${API_URL}/api`, 
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   }
 });
 
-// Request interceptor
 axiosInstance.interceptors.request.use((config) => {
   const access = localStorage.getItem('access_token');
   if (access) {
@@ -31,12 +31,9 @@ axiosInstance.interceptors.response.use(
 
       if (refresh) {
         try {
-          // Use axiosInstance instead of raw axios
-          const resp = await axiosInstance.post('/token/refresh/', { refresh });
-          
+          const resp = await axios.post(`${API_URL}/token/refresh/`, { refresh }); 
           localStorage.setItem('access_token', resp.data.access);
 
-          // Update headers
           axiosInstance.defaults.headers['Authorization'] = `Bearer ${resp.data.access}`;
           originalRequest.headers['Authorization'] = `Bearer ${resp.data.access}`;
 
