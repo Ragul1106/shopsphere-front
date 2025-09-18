@@ -18,11 +18,15 @@ const Products = () => {
       const categoryFilter = selectedCategory
         ? `&category__slug=${selectedCategory}`
         : "";
-      const res = await axiosInstance.get(
-        `/products/?page=${page}${categoryFilter}`
-      );
-      setProducts(res.data.results);
-      setCount(res.data.count);
+      const res = await axiosInstance.get(`/products/?page=${page}${categoryFilter}`);
+
+      // Check if backend returns paginated object or array
+      const data = Array.isArray(res.data) ? res.data : res.data.results;
+
+      setProducts(data);
+
+      // If paginated object, also set count
+      setCount(res.data.count || data.length);
       setCurrentPage(page);
     } catch (err) {
       console.error("❌ Fetch Products Error:", err);
@@ -30,6 +34,7 @@ const Products = () => {
       setLoading(false);
     }
   };
+
 
   useEffect(() => {
     fetchProducts(1, category);
@@ -53,13 +58,12 @@ const Products = () => {
             key={cat.value}
             onClick={() => {
               setCategory(cat.value);
-              setCurrentPage(1); 
+              setCurrentPage(1);
             }}
-            className={`px-4 py-2 rounded-lg cursor-pointer text-sm font-medium shadow transition ${
-              category === cat.value
+            className={`px-4 py-2 rounded-lg cursor-pointer text-sm font-medium shadow transition ${category === cat.value
                 ? "bg-purple-700 text-white"
                 : "bg-purple-100 text-purple-700 hover:bg-purple-200"
-            }`}
+              }`}
           >
             {cat.label}
           </button>
@@ -81,11 +85,10 @@ const Products = () => {
               <button
                 disabled={currentPage === 1}
                 onClick={() => fetchProducts(currentPage - 1, category)}
-                className={`px-3 py-1 rounded ${
-                  currentPage === 1
+                className={`px-3 py-1 rounded ${currentPage === 1
                     ? "bg-gray-300 text-gray-500  cursor-not-allowed"
                     : "bg-purple-600 text-white cursor-pointer hover:bg-purple-700"
-                }`}
+                  }`}
               >
                 ◀
               </button>
@@ -96,11 +99,10 @@ const Products = () => {
                   <button
                     key={page}
                     onClick={() => fetchProducts(page, category)}
-                    className={`px-3 py-1 rounded ${
-                      currentPage === page
+                    className={`px-3 py-1 rounded ${currentPage === page
                         ? "bg-purple-800 text-white cursor-pointer font-bold"
                         : "bg-purple-100 text-purple-700 hover:bg-purple-200"
-                    }`}
+                      }`}
                   >
                     {page}
                   </button>
@@ -111,11 +113,10 @@ const Products = () => {
               <button
                 disabled={currentPage === totalPages}
                 onClick={() => fetchProducts(currentPage + 1, category)}
-                className={`px-3 py-1 rounded ${
-                  currentPage === totalPages
+                className={`px-3 py-1 rounded ${currentPage === totalPages
                     ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                     : "bg-purple-600 text-white cursor-pointer hover:bg-purple-700"
-                }`}
+                  }`}
               >
                 ▶
               </button>
