@@ -32,7 +32,7 @@ axiosInstance.interceptors.response.use(
       if (refresh) {
         try {
           // Use axiosInstance instead of raw axios
-          const resp = await axiosInstance.post('/api/token/refresh/', { refresh });
+          const resp = await axiosInstance.post('/token/refresh/', { refresh });
           
           localStorage.setItem('access_token', resp.data.access);
 

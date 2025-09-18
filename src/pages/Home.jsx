@@ -9,7 +9,7 @@ import ProductCard from "../components/ProductCard";
 
 const Home = () => {
 
-   const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const particlesInit = async (main) => {
     await loadFull(main);
@@ -18,8 +18,8 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axiosInstance.get("/products/"); 
-        setProducts(res.data.results || res.data); 
+        const res = await axiosInstance.get("/products/");
+        setProducts(res.data.results || res.data);
       } catch (err) {
         console.error("Failed to fetch products:", err);
         toast.error("Failed to load products.");
@@ -31,7 +31,7 @@ const Home = () => {
     fetchProducts();
   }, []);
 
-  const productsToShow = products.slice(0, 3); 
+  const productsToShow = products.slice(0, 3);
 
   const particlesOptions = {
     background: { color: { value: "transparent" } },
@@ -104,7 +104,7 @@ const Home = () => {
           {["Hindu Wedding", "Muslim Wedding", "Christian Wedding", "Indian Wedding"].map((cat, index) => (
             <div
               key={index}
-              className="bg-white rounded-2xl shadow-lg p-6 text-center hover:scale-105 transition-transform duration-300 neon-card cursor-pointer"
+              className="bg-white rounded-2xl shadow-lg p-6 text-center hover:scale-105 transition-transform duration-300 neon-card"
             >
               <div className="text-6xl mb-4 animate-bounce">📦</div>
               <h3 className="text-xl font-bold">{cat}</h3>
