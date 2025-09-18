@@ -34,12 +34,12 @@ const ProductDetail = () => {
 
   const handleAdd = () => {
     addToCart(product, qty);
-    navigate("/cart"); // redirect after adding
+    navigate("/cart"); 
   };
 
   return (
     <div className="p-8 container mx-auto grid md:grid-cols-2 gap-10">
-      {/* Left: Product Image */}
+     
       <div className="flex justify-center">
         <div className="overflow-hidden rounded-xl shadow-lg w-full h-full max-w-md">
           <img
