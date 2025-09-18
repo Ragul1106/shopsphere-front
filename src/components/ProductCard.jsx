@@ -22,8 +22,7 @@ const ProductCard = ({ product }) => {
       <div className="mt-3 flex items-center justify-between">
         <div className="font-bold">₹{product.price}</div>
         <div className="flex gap-2">
-          <Link to={`/product/${product.slug || product.id}`}                className="text-sm px-3 py-1.5 rounded-lg bg-blue-600 text-white shadow-md hover:bg-blue-700 transition duration-300"
->View</Link>
+          <Link to={`/product/${product.slug || product.id}`} className="text-sm px-3 py-1.5 rounded-lg bg-blue-600 text-white shadow-md hover:bg-blue-700 transition duration-300" >View</Link>
           <button
             onClick={() => addToCart(product)}
             className="bg-green-600 text-white cursor-pointer px-3 py-1 rounded"

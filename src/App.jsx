@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import CursorSparkles from "./components/CursorSparkles";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
@@ -19,6 +20,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="min-h-screen flex flex-col">
+        <CursorSparkles />
         <Navbar />
         <main className="flex-grow">
           <Routes>

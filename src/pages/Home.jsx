@@ -62,8 +62,8 @@ const Home = () => {
 
   return (
     <div className="w-full">
-      {/* Hero Section */}
-      <section className="relative h-screen flex flex-col justify-center items-center text-center overflow-hidden bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-400 text-white px-6">
+     
+      <section className="relative h-75 flex flex-col justify-center items-center text-center overflow-hidden bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-400 text-white px-6">
         <Particles className="absolute inset-0 z-0" init={particlesInit} options={particlesOptions} />
         <h1 className="relative z-10 text-5xl md:text-6xl font-extrabold mb-4 animate-pulse drop-shadow-lg">
           Welcome to ShopSphere
@@ -79,7 +79,6 @@ const Home = () => {
         </Link>
       </section>
 
-      {/* Features Section */}
       <section className="py-20 px-6 bg-gray-50">
         <h2 className="text-4xl font-bold text-center mb-12">Why Choose Us</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
@@ -97,11 +96,10 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Categories Section */}
       <section className="py-20 px-6 bg-gradient-to-r from-purple-50 to-pink-50">
         <h2 className="text-4xl font-bold text-center mb-12">Shop by Category</h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
-          {["Hindu Wedding", "Muslim Wedding", "Christian Wedding", "Indian Wedding"].map((cat, index) => (
+          {["Hindu Wedding", "Muslim Wedding", "Christian Wedding", "Interfaith Wedding"].map((cat, index) => (
             <div
               key={index}
               className="bg-white rounded-2xl shadow-lg p-6 text-center hover:scale-105 transition-transform duration-300 neon-card"
@@ -113,7 +111,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Popular Products Section */}
       <section className="py-20 px-6 bg-gray-100">
         <h2 className="text-4xl font-bold text-center mb-12">Popular Products</h2>
         {loading ? (
@@ -137,7 +134,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
       <section className="py-20 px-6 bg-gradient-to-r from-yellow-50 via-pink-50 to-purple-50">
         <h2 className="text-4xl font-bold text-center mb-12">What Our Customers Say</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
@@ -154,7 +150,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Call-to-Action Section */}
       <section className="py-20 px-6 bg-purple-600 text-white text-center">
         <h2 className="text-4xl font-bold mb-6">Ready to Start Shopping?</h2>
         <p className="mb-6">Explore our wide range of products and find what you love!</p>

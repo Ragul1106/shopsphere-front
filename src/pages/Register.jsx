@@ -27,7 +27,6 @@ const Register = () => {
     generateSparkle(rect.left + Math.random() * rect.width, rect.top + Math.random() * rect.height);
   };
 
-  // Button hover sparkles
   const handleButtonHover = (e) => {
     const rect = e.target.getBoundingClientRect();
     const interval = setInterval(() => {
@@ -36,7 +35,7 @@ const Register = () => {
     e.target.addEventListener("mouseleave", () => clearInterval(interval), { once: true });
   };
 
-  // Full-screen explosion on success
+
   useEffect(() => {
     if (!explosion) return;
     const explosionInterval = setInterval(() => {
@@ -48,14 +47,14 @@ const Register = () => {
     return () => clearInterval(explosionInterval);
   }, [explosion]);
 
-  // Cursor-following sparkles
+
   useEffect(() => {
     const handleMouseMove = (e) => generateSparkle(e.clientX, e.clientY);
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Continuous drifting background sparkles
+
   useEffect(() => {
     const interval = setInterval(() => {
       const x = Math.random() * window.innerWidth;
@@ -84,7 +83,7 @@ const Register = () => {
   };
 
   return (
-<div className="relative min-h-screen flex items-center justify-center overflow-hidden 
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden 
     bg-gradient-to-r from-purple-700 via-pink-500 to-blue-600 p-4">
       {/* Floating Background Shapes */}
       <motion.div className="absolute w-40 h-40 bg-purple-300 rounded-full opacity-40 top-10 left-10 blur-2xl animate-bounce-slow" />
@@ -116,7 +115,6 @@ const Register = () => {
         ))}
       </AnimatePresence>
 
-      {/* Registration Form */}
       <motion.form
         onSubmit={handleSubmit}
         initial={{ opacity: 0, scale: 0.8 }}
@@ -144,7 +142,7 @@ const Register = () => {
         ))}
 
         <button
-          className="relative bg-purple-600 text-white p-3 rounded-lg font-semibold mt-2 shadow-lg hover:bg-purple-700 transition transform hover:scale-105"
+          className="relative bg-purple-600 text-white cursor-pointer p-3 rounded-lg font-semibold mt-2 shadow-lg hover:bg-purple-700 transition transform hover:scale-105"
           disabled={loading}
           onMouseEnter={handleButtonHover}
         >
