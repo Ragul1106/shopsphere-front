@@ -55,7 +55,7 @@ const Products = () => {
               setCategory(cat.value);
               setCurrentPage(1); 
             }}
-            className={`px-4 py-2 rounded-lg text-sm font-medium shadow transition ${
+            className={`px-4 py-2 rounded-lg cursor-pointer text-sm font-medium shadow transition ${
               category === cat.value
                 ? "bg-purple-700 text-white"
                 : "bg-purple-100 text-purple-700 hover:bg-purple-200"
