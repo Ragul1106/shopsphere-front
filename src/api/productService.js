@@ -1,17 +1,17 @@
 import axiosInstance from "./axios";
 
 export const fetchProducts = async (params = {}) => {
-  const res = await axiosInstance.get("/api/products/", { params });
+  const res = await axiosInstance.get("/products/", { params });
   return res.data;
 };
 
 export const fetchProductBySlug = async (slug) => {
-  const res = await axiosInstance.get(`/api/products/${slug}/`);
+  const res = await axiosInstance.get(`/products/${slug}/`);
   return res.data;
 };
 
 export const createProduct = async (payload) => {
-  const res = await axiosInstance.post("/api/products/", payload, {
+  const res = await axiosInstance.post("/products/", payload, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   return res.data;
