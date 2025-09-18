@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
-import axiosInstance from "../api/axios"; // make sure this is your axios instance
+import axiosInstance from "../api/axios"; 
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -10,9 +10,11 @@ const Contact = () => {
     subject: "",
     message: "",
   });
-
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
+
+  // Check if user is logged in
+  const isLoggedIn = !!localStorage.getItem("access_token");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,6 +22,12 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!isLoggedIn) {
+      alert("You must be logged in to send a message.");
+      return;
+    }
+
     setLoading(true);
     setSuccess("");
 
@@ -65,7 +73,14 @@ const Contact = () => {
           className="space-y-5"
           onSubmit={handleSubmit}
         >
+          {!isLoggedIn && (
+            <p className="text-red-500 font-semibold mb-2">
+              You must be logged in to send a message.
+            </p>
+          )}
+
           {success && <p className="text-green-600 font-semibold">{success}</p>}
+
           <input
             name="name"
             value={formData.name}
@@ -73,6 +88,7 @@ const Contact = () => {
             className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Your Name"
             required
+            disabled={!isLoggedIn}
           />
           <input
             type="email"
@@ -82,6 +98,7 @@ const Contact = () => {
             className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Your Email"
             required
+            disabled={!isLoggedIn}
           />
           <input
             name="subject"
@@ -90,6 +107,7 @@ const Contact = () => {
             className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Subject"
             required
+            disabled={!isLoggedIn}
           />
           <textarea
             name="message"
@@ -99,11 +117,13 @@ const Contact = () => {
             rows="4"
             placeholder="Your Message"
             required
+            disabled={!isLoggedIn}
           ></textarea>
           <button
             type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg flex items-center justify-center gap-2 font-semibold transition-all duration-300 shadow-md hover:shadow-lg"
+            disabled={!isLoggedIn || loading}
+            className={`w-full flex items-center cursor-pointer justify-center gap-2 px-4 py-3 rounded-lg font-semibold transition-all duration-300 shadow-md
+              ${isLoggedIn ? "bg-blue-600 hover:bg-blue-700 text-white" : "bg-gray-300 text-gray-500 cursor-not-allowed"}`}
           >
             <Send size={18} /> {loading ? "Sending..." : "Send Message"}
           </button>
@@ -114,6 +134,7 @@ const Contact = () => {
 };
 
 export default Contact;
+
 
 
 
