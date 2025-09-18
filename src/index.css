@@ -1,0 +1,42 @@
+@import "tailwindcss";
+/* login */
+@keyframes gradient-x {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 15s ease infinite;
+}
+
+@keyframes gradient-text {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-text {
+  background-size: 200% 200%;
+  animation: gradient-text 5s ease infinite;
+}
+
+
+/* home */
+
+/* Neon Button Glow */
+.neon-button {
+  box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 55px #ff00ff;
+  transition: all 0.3s ease-in-out;
+}
+.neon-button:hover {
+  box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #ff00ff, 0 0 60px #ff00ff, 0 0 80px #ff00ff, 0 0 100px #ff00ff;
+}
+
+/* Neon Card Glow */
+.neon-card {
+  transition: all 0.3s ease-in-out;
+}
+.neon-card:hover {
+  box-shadow: 0 0 10px #fff, 0 0 20px #ff66ff, 0 0 30px #ff66ff, 0 0 40px #ff66ff;
+}
