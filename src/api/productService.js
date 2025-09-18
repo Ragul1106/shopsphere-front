@@ -24,6 +24,7 @@ export const fetchCategories = async () => {
 
 
 export const createOrder = async (payload) => {
+  
   try {
     const res = await axiosInstance.post("/orders/", payload);
     return res.data;
