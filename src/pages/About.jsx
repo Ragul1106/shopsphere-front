@@ -69,7 +69,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Call to Action */}
       <section className="py-16 px-6 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center">
         <h2 className="text-3xl font-bold mb-4">Join Our Journey</h2>
         <p className="max-w-2xl mx-auto mb-6 opacity-90">

@@ -34,7 +34,7 @@ const Cart = () => {
 
       <div className="bg-white shadow rounded-lg p-4 divide-y">
         {cart.map((item) => {
-          const product = item.product || {}; // fallback if nested
+          const product = item.product || {}; 
           const imageUrl =
             product.image || product.images?.[0] || "https://via.placeholder.com/100";
 
@@ -45,7 +45,7 @@ const Cart = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              {/* Left: Image + Name */}
+
               <div className="flex items-center gap-4 w-full sm:w-auto">
                 <img
                   src={imageUrl}
@@ -60,7 +60,6 @@ const Cart = () => {
                 </div>
               </div>
 
-              {/* Middle: Quantity controls */}
               <div className="flex items-center">
                 <button
                   className="px-3 py-1 border rounded-l cursor-pointer hover:bg-gray-100 disabled:opacity-50"
@@ -80,7 +79,6 @@ const Cart = () => {
                 </button>
               </div>
 
-              {/* Right: Price + Remove */}
               <div className="flex flex-col sm:flex-row items-center gap-3">
                 <span className="text-xl font-bold text-gray-800">
                   ₹{(product.price * item.quantity).toLocaleString()}
@@ -97,7 +95,6 @@ const Cart = () => {
         })}
       </div>
 
-      {/* Total + Checkout */}
       <div className="flex flex-col sm:flex-row justify-between items-center mt-8 p-4 bg-gray-100 rounded-lg">
         <h2 className="text-xl font-bold">Total: ₹{total.toLocaleString()}</h2>
         <Link

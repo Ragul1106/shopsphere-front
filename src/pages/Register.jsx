@@ -6,66 +6,42 @@ const colors = ["#FFD700", "#FF69B4", "#7FFFD4", "#00BFFF", "#FF4500"];
 
 const Register = () => {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [sparkles, setSparkles] = useState([]);
   const [explosion, setExplosion] = useState(false);
 
-  // Generate a sparkle
-  const generateSparkle = (x, y, relative = false) => {
-    const id = Date.now() + Math.random();
-    const size = Math.random() * 6 + 4;
-    const color = colors[Math.floor(Math.random() * colors.length)];
-    setSparkles((prev) => [...prev, { id, x, y, size, color, relative }]);
-    setTimeout(() => {
-      setSparkles((prev) => prev.filter((s) => s.id !== id));
-    }, 700);
+  // ✅ Validation function
+  const validateForm = () => {
+    let newErrors = {};
+
+    if (!form.username.trim()) {
+      newErrors.username = "Username is required";
+    } else if (form.username.trim().length < 3) {
+      newErrors.username = "Username must be at least 3 characters";
+    }
+
+    if (!form.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      newErrors.email = "Enter a valid email address";
+    }
+
+    if (!form.password) {
+      newErrors.password = "Password is required";
+    } else if (form.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  // Input field typing sparkles
-  const handleTypingSparkle = (e) => {
-    const rect = e.target.getBoundingClientRect();
-    generateSparkle(rect.left + Math.random() * rect.width, rect.top + Math.random() * rect.height);
-  };
-
-  const handleButtonHover = (e) => {
-    const rect = e.target.getBoundingClientRect();
-    const interval = setInterval(() => {
-      generateSparkle(rect.left + Math.random() * rect.width, rect.top + Math.random() * rect.height);
-    }, 150);
-    e.target.addEventListener("mouseleave", () => clearInterval(interval), { once: true });
-  };
-
-
-  useEffect(() => {
-    if (!explosion) return;
-    const explosionInterval = setInterval(() => {
-      const x = Math.random() * window.innerWidth;
-      const y = Math.random() * window.innerHeight;
-      generateSparkle(x, y);
-    }, 50);
-    setTimeout(() => clearInterval(explosionInterval), 1400);
-    return () => clearInterval(explosionInterval);
-  }, [explosion]);
-
-
-  useEffect(() => {
-    const handleMouseMove = (e) => generateSparkle(e.clientX, e.clientY);
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const x = Math.random() * window.innerWidth;
-      const y = Math.random() * window.innerHeight;
-      generateSparkle(x, y);
-    }, 300);
-    return () => clearInterval(interval);
-  }, []);
-
+  // ✅ Handle Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return; // stop if invalid
+
     setLoading(true);
     try {
       await register(form);
@@ -82,14 +58,59 @@ const Register = () => {
     }
   };
 
+  // Sparkle Generator
+  const generateSparkle = (x, y, relative = false) => {
+    const id = Date.now() + Math.random();
+    const size = Math.random() * 6 + 4;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    setSparkles((prev) => [...prev, { id, x, y, size, color, relative }]);
+    setTimeout(() => {
+      setSparkles((prev) => prev.filter((s) => s.id !== id));
+    }, 700);
+  };
+
+  const handleTypingSparkle = (e) => {
+    const rect = e.target.getBoundingClientRect();
+    generateSparkle(rect.left + Math.random() * rect.width, rect.top + Math.random() * rect.height);
+  };
+
+  const handleButtonHover = (e) => {
+    const rect = e.target.getBoundingClientRect();
+    const interval = setInterval(() => {
+      generateSparkle(rect.left + Math.random() * rect.width, rect.top + Math.random() * rect.height);
+    }, 150);
+    e.target.addEventListener("mouseleave", () => clearInterval(interval), { once: true });
+  };
+
+  useEffect(() => {
+    if (!explosion) return;
+    const explosionInterval = setInterval(() => {
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+      generateSparkle(x, y);
+    }, 50);
+    setTimeout(() => clearInterval(explosionInterval), 1400);
+    return () => clearInterval(explosionInterval);
+  }, [explosion]);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => generateSparkle(e.clientX, e.clientY);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+      generateSparkle(x, y);
+    }, 300);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden 
     bg-gradient-to-r from-purple-700 via-pink-500 to-blue-600 p-4">
-      {/* Floating Background Shapes */}
-      <motion.div className="absolute w-40 h-40 bg-purple-300 rounded-full opacity-40 top-10 left-10 blur-2xl animate-bounce-slow" />
-      <motion.div className="absolute w-60 h-60 bg-pink-300 rounded-full opacity-30 top-64 right-20 blur-3xl animate-bounce-slower" />
-      <motion.div className="absolute w-32 h-32 bg-yellow-300 rounded-full opacity-30 bottom-20 left-1/3 blur-2xl animate-bounce-slowest" />
-
       {/* Sparkles */}
       <AnimatePresence>
         {sparkles.map((s) => (
@@ -129,7 +150,8 @@ const Register = () => {
         {["username", "email", "password"].map((field) => (
           <div key={field} className="relative">
             <input
-              className="w-full border-2 border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+              className={`w-full border-2 p-3 rounded-lg focus:outline-none transition 
+              ${errors[field] ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-2 focus:ring-purple-500"}`}
               placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
               type={field === "password" ? "password" : "text"}
               value={form[field]}
@@ -138,6 +160,9 @@ const Register = () => {
                 handleTypingSparkle(e);
               }}
             />
+            {errors[field] && (
+              <p className="text-red-500 text-sm mt-1">{errors[field]}</p>
+            )}
           </div>
         ))}
 
@@ -151,10 +176,7 @@ const Register = () => {
 
         <p className="text-center text-sm text-gray-500 mt-2">
           Already have an account?{" "}
-          <a
-            href="/login"
-            className="text-purple-600 font-semibold hover:underline"
-          >
+          <a href="/login" className="text-purple-600 font-semibold hover:underline">
             Login
           </a>
         </p>

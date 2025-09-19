@@ -41,7 +41,7 @@ const Home = () => {
       modes: { push: { quantity: 4 }, repulse: { distance: 100, duration: 0.4 } },
     },
     particles: {
-      color: { value: ["#00ffff", "#ff00ff", "#ffff00", "#00ff88"] }, // neon on dark bg
+      color: { value: ["#00ffff", "#ff00ff", "#ffff00", "#00ff88"] }, 
       links: { enable: true, color: "#888", distance: 150, opacity: 0.3, width: 1 },
       collisions: { enable: true },
       move: { direction: "none", enable: true, outModes: "bounce", random: true, speed: 2, straight: false },
@@ -154,7 +154,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Call to Action */}
       <section className="py-20 px-6  bg-gradient-to-r from-gray-900 via-purple-900 to-black text-white text-center">
         <h2 className="text-4xl font-bold mb-6">Ready to Start Shopping?</h2>
         <p className="mb-6 text-gray-300">Explore our wide range of products and find what you love!</p>
