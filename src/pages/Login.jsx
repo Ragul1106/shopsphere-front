@@ -6,13 +6,13 @@ import toast from "react-hot-toast";
 const Login = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [email, setEmail] = useState(""); // <-- changed
+  const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const success = await login(email, password); // <-- pass email
+      const success = await login(email, password); 
       if (success) {
         toast.success("Logged in successfully!");
         navigate("/");

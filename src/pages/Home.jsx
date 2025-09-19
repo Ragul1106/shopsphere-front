@@ -81,7 +81,7 @@ const Home = () => {
             { icon: "💳", title: "Secure Payment", desc: "All payments are 100% secure and encrypted." },
             { icon: "⭐", title: "Best Quality", desc: "We offer only high-quality products." },
           ].map((feature, index) => (
-            <div key={index} className="bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 text-center cursor-pointer">
+            <div key={index} className="bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 text-center">
               <div className="text-5xl mb-4">{feature.icon}</div>
               <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
               <p className="text-gray-400">{feature.desc}</p>
