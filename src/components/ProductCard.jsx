@@ -10,11 +10,11 @@ const ProductCard = ({ product }) => {
   const img = product?.image ? getFullImageUrl(product.image) : "/placeholder.png";
 
   return (
-    <div className="group relative p-5 bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 hover:scale-[1.02]">
+    <div className="group relative p-5 dark:bg-gray-900, dark:text-gray-400 border border-amber-50 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 hover:scale-[1.02]">
       <img
         src={img}
         alt={product.name}
-        className="w-full h-48 object-cover rounded mb-3"
+        className="w-full h-48 object-contain rounded mb-3"
         onError={(e) => { e.currentTarget.src = "/placeholder.png"; }}
       />
       <h3 className="font-semibold">{product.name}</h3>
