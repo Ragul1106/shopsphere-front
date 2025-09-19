@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
+import { loadFull } from "tsparticles";  // ✅ works with v2.11.0
 import axiosInstance from "../api/axios";
 import toast from "react-hot-toast";
 import ProductCard from "../components/ProductCard";
@@ -12,6 +12,7 @@ const Home = () => {
 
   // Initialize particles safely
   const particlesInit = useCallback(async (engine) => {
+    // load the full tsParticles package into the engine
     await loadFull(engine);
   }, []);
 
@@ -19,7 +20,6 @@ const Home = () => {
     const fetchProducts = async () => {
       try {
         const res = await axiosInstance.get("/products/");
-        // Always default to an array to prevent map errors
         setProducts(Array.isArray(res.data.results) ? res.data.results : res.data || []);
       } catch (err) {
         console.error("Failed to fetch products:", err);
@@ -44,13 +44,29 @@ const Home = () => {
         onHover: { enable: true, mode: "repulse" },
         resize: true,
       },
-      modes: { push: { quantity: 4 }, repulse: { distance: 100, duration: 0.4 } },
+      modes: {
+        push: { quantity: 4 },
+        repulse: { distance: 100, duration: 0.4 },
+      },
     },
     particles: {
       color: { value: ["#ff00ff", "#00ffff", "#ffff00", "#ff6600"] },
-      links: { enable: true, color: "#ffffff", distance: 150, opacity: 0.3, width: 1 },
+      links: {
+        enable: true,
+        color: "#ffffff",
+        distance: 150,
+        opacity: 0.3,
+        width: 1,
+      },
       collisions: { enable: true },
-      move: { direction: "none", enable: true, outModes: "bounce", random: true, speed: 2, straight: false },
+      move: {
+        direction: "none",
+        enable: true,
+        outModes: "bounce",
+        random: true,
+        speed: 2,
+        straight: false,
+      },
       number: { density: { enable: true, area: 800 }, value: 50 },
       opacity: { value: 0.5 },
       shape: { type: "circle" },
@@ -63,7 +79,11 @@ const Home = () => {
     <div className="w-full">
       {/* Hero Section */}
       <section className="relative h-75 flex flex-col justify-center items-center text-center overflow-hidden bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-400 text-white px-6">
-        <Particles className="absolute inset-0 z-0" init={particlesInit} options={particlesOptions} />
+        <Particles
+          className="absolute inset-0 z-0"
+          init={particlesInit}
+          options={particlesOptions}
+        />
         <h1 className="relative z-10 text-5xl md:text-6xl font-extrabold mb-4 animate-pulse drop-shadow-lg">
           Welcome to ShopSphere
         </h1>
